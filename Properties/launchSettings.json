@@ -14,7 +14,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation",
-        "UserId": "0a57922731d383559ee57c9c2ed14250"
+        "UserId": "0912a1ddbb136ab35652bf88501c25c6"
       }
     },
     "IUGU.Web": {
@@ -24,7 +24,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation",
-        "UserId": "0a57922731d383559ee57c9c2ed14250"
+        "UserId": "0912a1ddbb136ab35652bf88501c25c6"
       }
     }
   }

@@ -128,7 +128,7 @@ namespace IUGU.Web.Models
         public object occurrence_date { get; set; }
         public object refundable { get; set; }
         public object installments { get; set; }
-        public int transaction_number { get; set; }
+        public int? transaction_number { get; set; }
         public object payment_method { get; set; }
         public object financial_return_dates { get; set; }
         public object bank_slip { get; set; }
