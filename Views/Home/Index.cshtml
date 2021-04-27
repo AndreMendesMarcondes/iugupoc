@@ -1,0 +1,132 @@
+﻿<div class="container">
+    <div class="offset-1 col-md-10">
+        <div class="card  text-center">
+            <div class="card-header">
+                <b style="color: black">Doar</b>
+            </div>
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <div class="col-md-12 doarValorCard" onclick="buscarPix(3000)">
+                        <p><span class="numeroDoaar">30</span>  <span class="textoDoar">reais</span></p>
+                        <hr />
+                    </div>
+                    <div class="col-md-12 doarValorCard" onclick="buscarPix(6000)">
+                        <p><span class="numeroDoaar">60</span>  <span class="textoDoar">reais</span></p>
+                    </div>
+                    <div class="col-md-12 doarValorCard" onclick="buscarPix(9000)">
+                        <hr />
+                        <p><span class="numeroDoaar">90</span>  <span class="textoDoar">reais</span></p>
+                    </div>
+                    <div class="col-md-12 doarValorCard" onclick="outroValor()">
+                        <hr />
+                        <p><span class="numeroDoaar">Outro valor</span></p>
+                    </div>
+                </div>
+                <div class="col-md-8 card-body cardBodyDoar">
+                    <div class="col-md-12" id="pixCard">
+                        <h3>Doe com PIX!</h3>
+                        <p>É simples, prático e muito rápido!</p>
+                        <p>Utilize a chave abaixo ou nosso QR Code</p>
+                        <p>CNPJ <b>98.0009.1212/0001</b></p>
+                        <div id="pixQrCode">
+
+                        </div>
+                        <div id="loading">
+                            <br />
+                            <img src="~/img/loading.gif" width="30%" />
+                            <br />
+                            <br />
+                            <p>
+                                Gerando QR Code...
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center" id="outroValor">
+                        <div class="row">
+                            <div class="form-group offset-2 col-8">
+                                <label>Digite o valor que deseja doar: </label>
+                                <input type="text" id="money" class="form-control" />
+                                <br />
+                                <span onclick="gerarDoacaoOutroValor()" class="btn btn-success">Gerar Doação</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#money").maskMoney({
+                prefix: "R$ ",
+                decimal: ",",
+                thousands: "."
+            });
+            $("#outroValor").hide();
+            buscarPix(3000);
+        });
+
+        function buscarPix(valor) {
+            $("#pixQrCode").hide();
+            $("#loading").show();
+
+            $.ajax({
+                url: "/Home/_GetPix/",
+                data: { valor: valor },
+                type: "post",
+                dataType: "html",
+                success: function (data) {
+                    $("#pixQrCode").html(data);
+                    $("#pixQrCode").show();
+                    $("#loading").hide();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                }
+            })
+        }
+
+        function buscarPixOutroValor(valor) {
+            $("#pixCard").show();
+            $("#outroValor").hide();
+            buscarPix(valor);
+        }
+
+        function outroValor() {
+            $("#pixCard").hide();
+            $("#outroValor").show();
+        }
+
+        function gerarDoacaoOutroValor() {
+            var valor = parseInt($("#money").val().replace("R$ ", '').replace(',', '').replace('.', ''));
+
+            if (valor < 100) {
+                alert('Mínimo é 1 real');
+            } else {
+                buscarPixOutroValor(valor);
+            }
+        }
+    </script>
+    <style>
+        .numeroDoaar {
+            font-weight: 900;
+            font-size: 40px;
+        }
+
+        .textoDoar {
+            font-size: 10px;
+            font-style: italic;
+        }
+
+        .doarValorCard {
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+            .doarValorCard:hover {
+                transform: scale(1.1);
+            }
+
+        .cardBodyDoar {
+            border-left: 1px solid rgba(0,0,0,.1);
+        }
+    </style>
